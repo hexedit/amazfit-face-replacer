@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="button_add">Добавить</string>
+	<string name="button_default">Восстановить по умолчанию</string>
+	<string name="chooser_title">Выберите файл с циферблатом</string>
+	<string name="no_available_chooser">Выбор файла недоступен. Пожалуйста, установите файловый менеджер</string>
+	<string name="replace_finished">Замена циферблата завершена</string>
+	<string name="replace_target_not_found">Целевой файл не существует</string>
+	<string name="replace_internal_error">Внутренняя ошибка при обработке замены</string>
+</resources>

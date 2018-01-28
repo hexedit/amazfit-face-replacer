@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">AFReplacer</string>
+    <string name="app_name" translatable="false">AFReplacer</string>
+    <string name="app_title" translatable="false">Amazfit Face Replacer</string>
+	<string name="button_add">Add new</string>
+	<string name="button_default">Reset to defaults</string>
+	<string name="chooser_title">Choose a face file</string>
+	<string name="no_available_chooser">No available file chooser. Please, install a file manager.</string>
+	<string name="replace_finished">Face file replace finished</string>
+	<string name="replace_target_not_found">Target face file does not exist</string>
+	<string name="replace_internal_error">Internal error while processing replace</string>
 </resources>
