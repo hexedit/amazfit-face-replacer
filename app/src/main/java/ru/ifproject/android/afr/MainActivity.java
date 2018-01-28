@@ -78,10 +78,12 @@ public class MainActivity extends Activity
 		Intent intent = getIntent();
 		if ( Intent.ACTION_SEND.equals( intent.getAction() ) )
 			faceFile = intent.getParcelableExtra( Intent.EXTRA_STREAM );
+		else if ( Intent.ACTION_VIEW.equals( intent.getAction() ) )
+			faceFile = intent.getData();
 		else
 		{
 			Intent chooser = new Intent( Intent.ACTION_GET_CONTENT );
-			chooser.setType( "*/*" );
+			chooser.setType( "application/octet-stream" );
 			chooser.addCategory( Intent.CATEGORY_OPENABLE );
 			try
 			{
