@@ -12,7 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -24,25 +24,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.channels.FileChannel;
 
+import ru.ifproject.android.afr.data.WatchFaceItem;
+import ru.ifproject.android.afr.data.widget.WatchFaceListAdapter;
+
 public class MainActivity extends Activity
 {
     private static final int PICK_FILE_ACTIVITY = 0;
 
     private static final String mifitFacePath =
             "/Android/data/com.xiaomi.hm.health/files/watch_skin/";
-    private static final String[] staticList = {
-            "Face 1",
-            "Face 2",
-            "Face 3",
-            "Face 4",
-            "Face 5",
-            "Face 6",
-            "Face 7",
-            "Face 8",
-            "Face 9",
-            "Face 10"
-    };
-    private static final String[] fileList = {
+    private static final String[] faceFiles = {
             "9098940e097cf25a971fc917630a6ac2.bin",
             "1d489df858097f0a2c8933bdc470fb19.bin",
             "ff08dd51b4dde06a2ba1ec14d8903a34.bin",
@@ -54,6 +45,30 @@ public class MainActivity extends Activity
             "393e000f7c51a54015403ae199e2b68e.bin",
             "60cf0698275183353ebb66c9d15d483d.bin"
     };
+    private static final String[] faceNames = {
+            "Digit Series 2",
+            "Winter",
+            "Pointer 2",
+            "Digit",
+            "Pointer",
+            "Card",
+            "Simple",
+            "City_Peking",
+            "City_Sydney",
+            "Game"
+    };
+    private static final int[] faceImages = {
+            R.drawable.face_digit_series_2,
+            R.drawable.face_winter,
+            R.drawable.face_pointer_2,
+            R.drawable.face_digit,
+            R.drawable.face_pointer,
+            R.drawable.face_card,
+            R.drawable.face_simple,
+            R.drawable.face_city_peking,
+            R.drawable.face_city_sydney,
+            R.drawable.face_game
+    };
 
     private Uri faceFile = null;
 
@@ -64,7 +79,7 @@ public class MainActivity extends Activity
         setContentView( R.layout.activity_main );
         setTitle( R.string.app_title );
 
-        ListView faceList = findViewById( R.id.face_list );
+        GridView faceList = findViewById( R.id.face_list );
 
         int perm = ActivityCompat.checkSelfPermission(
                 this,
@@ -108,9 +123,10 @@ public class MainActivity extends Activity
             finish();
         }
 
-        faceList.setAdapter( new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1, staticList ) );
+        faceList.setAdapter( new WatchFaceListAdapter( this, faceFiles, faceNames, faceImages ) );
         faceList.setOnItemClickListener( new FaceItemClickListener() );
+
+        Toast.makeText( this, R.string.choose_replacing, Toast.LENGTH_LONG ).show();
     }
 
     @Override
@@ -136,14 +152,15 @@ public class MainActivity extends Activity
         super.onActivityResult( requestCode, resultCode, data );
     }
 
-    private class FaceItemClickListener implements ListView.OnItemClickListener
+    private class FaceItemClickListener implements GridView.OnItemClickListener
     {
         @Override
         public void onItemClick( AdapterView<?> parent, View view, int position, long id )
         {
             try
             {
-                replaceFaceFile( faceFile, mifitFacePath + fileList[ position ] );
+                WatchFaceItem face = (WatchFaceItem) parent.getAdapter().getItem( position );
+                replaceFaceFile( faceFile, mifitFacePath + face.getFile() );
                 Toast.makeText( getBaseContext(), R.string.replace_finished, Toast.LENGTH_LONG )
                      .show();
             }

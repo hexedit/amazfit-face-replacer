@@ -8,4 +8,5 @@
     <string name="replace_target_not_found">Целевой файл не существует</string>
     <string name="replace_internal_error">Внутренняя ошибка при обработке замены</string>
     <string name="invalid_face_file">Неверный файл циферблата</string>
+    <string name="choose_replacing">Выберите циферблат для замены</string>
 </resources>

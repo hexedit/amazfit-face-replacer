@@ -5,12 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
+    android:background="#f7f7f7"
     tools:context="ru.ifproject.android.afr.MainActivity">
 
-    <ListView
+    <GridView
         android:id="@+id/face_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        android:horizontalSpacing="15dp"
+        android:verticalSpacing="15dp" />
 
     <Space
         android:layout_width="match_parent"

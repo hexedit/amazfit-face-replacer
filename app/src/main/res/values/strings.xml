@@ -9,4 +9,5 @@
     <string name="replace_target_not_found">Target face file does not exist</string>
     <string name="replace_internal_error">Internal error while processing replace</string>
     <string name="invalid_face_file">Invalid face file</string>
+    <string name="choose_replacing">Choose the face to replace to</string>
 </resources>
