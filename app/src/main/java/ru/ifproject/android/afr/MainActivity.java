@@ -11,7 +11,6 @@ import android.os.ParcelFileDescriptor;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -78,6 +77,10 @@ public class MainActivity extends Activity
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
         setTitle( R.string.app_title );
+
+        // Temporary hiding unimplemented buttons
+        findViewById( R.id.button_add ).setVisibility( View.GONE );
+        findViewById( R.id.button_default ).setVisibility( View.GONE );
 
         GridView faceList = findViewById( R.id.face_list );
 
@@ -160,7 +163,7 @@ public class MainActivity extends Activity
             try
             {
                 WatchFaceItem face = (WatchFaceItem) parent.getAdapter().getItem( position );
-                replaceFaceFile( faceFile, mifitFacePath + face.getFile() );
+                replaceFaceFile( faceFile, face.getFile() );
                 Toast.makeText( getBaseContext(), R.string.replace_finished, Toast.LENGTH_LONG )
                      .show();
             }
@@ -213,7 +216,13 @@ public class MainActivity extends Activity
         if ( null == pfd )
             throw new FileNotFoundException();
         FileDescriptor srcFile = pfd.getFileDescriptor();
-        File dstFile = new File( Environment.getExternalStorageDirectory().toString(), dst );
+
+        File path = new File( Environment.getExternalStorageDirectory().toString(), mifitFacePath );
+        if ( !path.exists() )
+            if ( !path.mkdirs() )
+                throw new FileNotFoundException();
+
+        File dstFile = new File( path, dst );
         if ( !dstFile.exists() )
             if ( !dstFile.createNewFile() )
                 throw new FileNotFoundException();
