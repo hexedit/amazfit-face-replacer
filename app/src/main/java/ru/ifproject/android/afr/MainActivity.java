@@ -1,3 +1,21 @@
+/*
+    Amazfit Face Replacer - a tool for replacing Amazfit Bip faces in Mi Fit
+    Copyright (C) 2018, IFProject / HexEdit, DriffeX, NitroOxid
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package ru.ifproject.android.afr;
 
 import android.Manifest;
@@ -9,6 +27,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.support.v4.app.ActivityCompat;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -28,7 +48,8 @@ import ru.ifproject.android.afr.data.widget.WatchFaceListAdapter;
 
 public class MainActivity extends Activity
 {
-    private static final int PICK_FILE_ACTIVITY = 0;
+    private static final int PICK_FILE_ACTIVITY = 1;
+    private static final int ABOUT_OPTIONS_ITEM = 1;
 
     private static final String mifitFacePath =
             "/Android/data/com.xiaomi.hm.health/files/watch_skin/";
@@ -78,10 +99,6 @@ public class MainActivity extends Activity
         setContentView( R.layout.activity_main );
         setTitle( R.string.app_title );
 
-        // Temporary hiding unimplemented buttons
-        findViewById( R.id.button_add ).setVisibility( View.GONE );
-        findViewById( R.id.button_default ).setVisibility( View.GONE );
-
         GridView faceList = findViewById( R.id.face_list );
 
         int perm = ActivityCompat.checkSelfPermission(
@@ -130,6 +147,30 @@ public class MainActivity extends Activity
         faceList.setOnItemClickListener( new FaceItemClickListener() );
 
         Toast.makeText( this, R.string.choose_replacing, Toast.LENGTH_LONG ).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu( Menu menu )
+    {
+        MenuItem about = menu.add( 0, ABOUT_OPTIONS_ITEM, 0, R.string.about );
+        about.setIcon( R.drawable.ic_menu_info );
+        about.setShowAsAction( MenuItem.SHOW_AS_ACTION_ALWAYS );
+
+        return super.onCreateOptionsMenu( menu );
+    }
+
+    @Override
+    public boolean onOptionsItemSelected( MenuItem item )
+    {
+        switch ( item.getItemId() )
+        {
+            case ABOUT_OPTIONS_ITEM:
+                Intent intent = new Intent( this, AboutActivity.class );
+                startActivity( intent );
+                return true;
+        }
+
+        return super.onOptionsItemSelected( item );
     }
 
     @Override

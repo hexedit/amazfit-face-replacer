@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="button_add">Додати</string>
-    <string name="button_default">Відновити стандартні</string>
+    <string name="menu_add">Додати</string>
+    <string name="menu_defaults">Відновити стандартні</string>
     <string name="choose_replacing">Оберіть циферблат для заміни</string>
     <string name="chooser_title">Оберіть файл з циферблатом</string>
     <string name="invalid_face_file">Хибний файл циферблату</string>
@@ -9,4 +9,6 @@
     <string name="replace_finished">Заміну циферблату завершено</string>
     <string name="replace_internal_error">Внутрішня помилка під час заміни</string>
     <string name="replace_target_not_found">Цільовий файл не існує</string>
+    <string name="credits">Розробники:</string>
+    <string name="about">Про додаток…</string>
 </resources>

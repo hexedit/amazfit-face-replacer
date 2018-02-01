@@ -19,25 +19,31 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/face_item_background"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
-    android:paddingBottom="5dp">
-
-    <ImageView
-        android:id="@+id/face_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:padding="10dp"
+    tools:context="ru.ifproject.android.afr.AboutActivity">
 
     <TextView
-        android:id="@+id/face_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp"
+        android:layout_marginTop="5dp"
         android:textAlignment="center"
-        android:textColor="#000000" />
+        android:text="@string/credits" />
+
+    <TextView
+        android:id="@+id/credits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/copyright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center" />
 
 </LinearLayout>

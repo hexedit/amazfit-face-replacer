@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="button_add">Añadir nuevo</string>
-    <string name="button_default">Restablecer los valores predeterminados</string>
+    <string name="menu_add">Añadir nuevo</string>
+    <string name="menu_defaults">Restablecer los valores predeterminados</string>
     <string name="choose_replacing">Elija la cara para reemplazar</string>
     <string name="chooser_title">Elige un archivo de rostro</string>
     <string name="invalid_face_file">Archivo inválido</string>
@@ -9,4 +9,6 @@
     <string name="replace_finished">Archivo reemplazado</string>
     <string name="replace_internal_error">Error interno durante el procesamiento</string>
     <string name="replace_target_not_found">El archivo de la cara del objetivo no existe</string>
+    <string name="credits">Desarrolladores:</string>
+    <string name="about">Sobre la aplicación…</string>
 </resources>
