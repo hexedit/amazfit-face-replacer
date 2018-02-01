@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_add">Añadir nuevo</string>
+    <string name="button_default">Restablecer los valores predeterminados</string>
+    <string name="choose_replacing">Elija la cara para reemplazar</string>
+    <string name="chooser_title">Elige un archivo de rostro</string>
+    <string name="invalid_face_file">Archivo inválido</string>
+    <string name="no_available_chooser">No hay un selector de archivos disponible. Por favor, instale un administrador de archivos.</string>
+    <string name="replace_finished">Archivo reemplazado</string>
+    <string name="replace_internal_error">Error interno durante el procesamiento</string>
+    <string name="replace_target_not_found">El archivo de la cara del objetivo no existe</string>
+</resources>
