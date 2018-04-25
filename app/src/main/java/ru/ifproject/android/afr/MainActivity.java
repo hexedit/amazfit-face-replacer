@@ -55,6 +55,7 @@ public class MainActivity extends Activity
             "/Android/data/com.xiaomi.hm.health/files/watch_skin/";
     private static final String[] faceFiles = {
             "9098940e097cf25a971fc917630a6ac2.bin",
+            "4742a3b64747a2f0b1f3f82adaa9a4a9.bin",
             "1d489df858097f0a2c8933bdc470fb19.bin",
             "ff08dd51b4dde06a2ba1ec14d8903a34.bin",
             "065a001971f63693cc133f754abeb48f.bin",
@@ -67,6 +68,7 @@ public class MainActivity extends Activity
     };
     private static final String[] faceNames = {
             "Digit Series 2",
+            "Reverse",
             "Winter",
             "Pointer 2",
             "Digit",
@@ -79,6 +81,7 @@ public class MainActivity extends Activity
     };
     private static final int[] faceImages = {
             R.drawable.face_digit_series_2,
+            R.drawable.face_reverse,
             R.drawable.face_winter,
             R.drawable.face_pointer_2,
             R.drawable.face_digit,
