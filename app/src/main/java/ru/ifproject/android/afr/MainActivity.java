@@ -54,17 +54,17 @@ public class MainActivity extends Activity
     private static final String mifitFacePath =
             "/Android/data/com.xiaomi.hm.health/files/watch_skin/";
     private static final String[] faceFiles = {
-            "9098940e097cf25a971fc917630a6ac2.bin",
+            "7e7cca472cb21cebb9a4b6fcd030fd9c.bin",
             "4742a3b64747a2f0b1f3f82adaa9a4a9.bin",
-            "1d489df858097f0a2c8933bdc470fb19.bin",
-            "ff08dd51b4dde06a2ba1ec14d8903a34.bin",
-            "065a001971f63693cc133f754abeb48f.bin",
-            "0d9fece425386d2ae3dd4ec698917db4.bin",
-            "e33c5a7bbae418728bf915c093d1704d.bin",
-            "b1a2ee8c77659e0680f8b97c41f93fb4.bin",
-            "af059d8bf4a51c409395912ac8538868.bin",
-            "393e000f7c51a54015403ae199e2b68e.bin",
-            "60cf0698275183353ebb66c9d15d483d.bin"
+            "9cf8c6bcf741fb2180fb36e14995fc82.bin",
+            "0073c0321081107436ea8fb1967d8d2e.bin",
+            "56a904bd28e69b4e1fdead495958419f.bin",
+            "1032ab237b171f9641fc685f8bdfa991.bin",
+            "d00903bd229d953ce8e511875e8590ef.bin",
+            "858c90971ed262d3122fe9fff48f955f.bin",
+            "dcdcaab5ca847bd75b5f8c8634f0e903.bin",
+            "a3321c2a4a3cd814de65f07da3169dd5.bin",
+            "8e15b9fb0730901cf5a8442ff778fcec.bin"
     };
     private static final String[] faceNames = {
             "Digit Series 2",
