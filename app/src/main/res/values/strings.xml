@@ -12,4 +12,5 @@
     <string name="choose_replacing">Choose the face to replace to</string>
     <string name="credits">Developers:</string>
     <string name="about">About…</string>
+    <string name="download_failed">Watchface download failed</string>
 </resources>

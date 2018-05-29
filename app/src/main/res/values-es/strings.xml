@@ -11,4 +11,5 @@
     <string name="replace_target_not_found">El archivo de la cara del objetivo no existe</string>
     <string name="credits">Desarrolladores:</string>
     <string name="about">Sobre la aplicación…</string>
+    <string name="download_failed">No se pudo descargar esfera de reloj</string>
 </resources>

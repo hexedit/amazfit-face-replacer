@@ -20,6 +20,9 @@ allprojects {
         google()
         jcenter()
     }
+    tasks.withType(JavaCompile) {
+        options.deprecation = true
+    }
 }
 
 task clean(type: Delete) {

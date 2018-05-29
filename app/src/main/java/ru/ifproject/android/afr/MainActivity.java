@@ -144,6 +144,7 @@ public class MainActivity extends Activity
             Toast.makeText( this, R.string.invalid_face_file, Toast.LENGTH_LONG )
                  .show();
             finish();
+            return;
         }
 
         faceList.setAdapter( new WatchFaceListAdapter( this, faceFiles, faceNames, faceImages ) );

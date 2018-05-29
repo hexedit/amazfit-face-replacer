@@ -11,4 +11,5 @@
     <string name="replace_target_not_found">Цільовий файл не існує</string>
     <string name="credits">Розробники:</string>
     <string name="about">Про додаток…</string>
+    <string name="download_failed">Не вдалося завантажити циферблат</string>
 </resources>
