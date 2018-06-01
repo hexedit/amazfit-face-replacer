@@ -56,21 +56,32 @@ public class DownloadActivity extends Activity
     private class MyWebViewClient extends WebViewClient
     {
         @Override
+        @SuppressWarnings( "deprecation" ) // Android 5.x, 6.x compatibility
+        public boolean shouldOverrideUrlLoading( WebView view, String url )
+        {
+            return processUrlOverride( Uri.parse( view.getUrl() ), Uri.parse( url ) );
+        }
+
+        @Override
         public boolean shouldOverrideUrlLoading( WebView view, WebResourceRequest request )
         {
-            final String url = request.getUrl().toString();
+            return processUrlOverride( Uri.parse( view.getUrl() ), request.getUrl() );
+        }
+
+        private boolean processUrlOverride( Uri now, Uri request )
+        {
+            final String url = request.toString();
 
             if ( !url.startsWith( baseUrl ) )
             {
-                Intent intent = new Intent( Intent.ACTION_VIEW, request.getUrl() );
+                Intent intent = new Intent( Intent.ACTION_VIEW, request );
                 startActivity( intent );
                 return true;
             }
 
             if ( url.endsWith( ".bin" ) )
             {
-                new DownloadTask( DownloadActivity.this )
-                        .execute( request.getUrl(), Uri.parse( view.getUrl() ) );
+                new DownloadTask( DownloadActivity.this ).execute( request, now );
                 return true;
             }
 
@@ -78,6 +89,7 @@ public class DownloadActivity extends Activity
         }
     }
 
+    @SuppressLint( "StaticFieldLeak" ) // TODO needs to be fixed in future
     private class DownloadTask extends AsyncTask<Uri, Integer, Uri>
     {
         private static final int bufferSize = 8192;
