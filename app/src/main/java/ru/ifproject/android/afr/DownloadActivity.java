@@ -72,7 +72,7 @@ public class DownloadActivity extends Activity
         {
             final String url = request.toString();
 
-            if ( !url.startsWith( baseUrl ) )
+            if ( !now.getHost().equals( request.getHost() ) )
             {
                 Intent intent = new Intent( Intent.ACTION_VIEW, request );
                 startActivity( intent );
