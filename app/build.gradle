@@ -21,37 +21,15 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
 
-    def versionPropsFile = file('version.properties')
-    if (versionPropsFile.canRead()) {
-        Properties versionProps = new Properties()
-        versionProps.load(new FileInputStream(versionPropsFile))
-        def versionMajor = versionProps['major'].toInteger()
-        def versionMinor = versionProps['minor'].toInteger()
-        def versionPatch = versionProps['patch'].toInteger()
-        def versionBuild = versionProps['build'].toInteger()
-        def versionNumber = versionProps['code'].toInteger()
-
-        if (gradle.startParameter.taskNames.any { it.toLowerCase().contains('assemble') }) {
-            versionProps['build'] = (versionBuild + 1).toString()
-            if (gradle.startParameter.taskNames.any { it.toLowerCase().contains('release') }) {
-                versionProps['patch'] = (versionPatch + 1).toString()
-                versionProps['code'] = (versionNumber + 1).toString()
-            }
-            versionProps.store(versionPropsFile.newWriter(), null)
-        }
-
-        defaultConfig {
-            applicationId "ru.ifproject.android.afr"
-            minSdkVersion 21
-            targetSdkVersion 27
-            versionCode versionNumber
-            versionName "$versionMajor.$versionMinor.$versionPatch"
-            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-            vectorDrawables.useSupportLibrary = true
-            setProperty("archivesBaseName", "$applicationId-$versionName")
-        }
-    } else {
-        throw new GradleException("Could not read version.properties!")
+    defaultConfig {
+        applicationId "ru.ifproject.android.afr"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 10
+        versionName "0.3.1"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        setProperty("archivesBaseName", "$applicationId-$versionName")
     }
 
     buildTypes {
@@ -64,8 +42,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    //implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
