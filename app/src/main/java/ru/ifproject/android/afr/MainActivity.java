@@ -58,6 +58,7 @@ public class MainActivity extends Activity
             "05963d61d975f5776825fa0285a4bf48.bin",
             "4742a3b64747a2f0b1f3f82adaa9a4a9.bin",
             "6a7850c336ddd8104dd5373adcd9250a.bin",
+            "c9cf094ec3e689112495eb539723bd02.bin",
             "346e945ff8ec88f73ac03877e34d50dd.bin",
             "0a6226125223e580973ca446fbda4e8f.bin",
             "ebdf8d01ae673814b4b929829da36962.bin",
@@ -68,13 +69,15 @@ public class MainActivity extends Activity
             "48c728bc39ffbe5ab304f57665289b28.bin",
             "974658b4ad337a81a8c9843e1aee3a52.bin",
             "f522ea87b0927f4468258d4cc326c0f9.bin",
-            "7bff10fc654d8d08873e59898fc15fb9.bin"
+            "7bff10fc654d8d08873e59898fc15fb9.bin",
+            "78accc1807339121981e71e1ee3b3d26.bin"
     };
     private static final String[] faceNames = {
             "Shade",
             "Cube",
             "Reverse",
             "Number",
+            "Sport",
             "Simple",
             "Winter",
             "Card",
@@ -85,24 +88,27 @@ public class MainActivity extends Activity
             "Simple_12h",
             "Number_12h",
             "City_Sydney",
-            "Game"
+            "Game",
+            "Electron"
     };
     private static final int[] faceImages = {
             R.drawable.face_shade,
             R.drawable.face_cube,
             R.drawable.face_reverse,
             R.drawable.face_number,
+            R.drawable.face_sport,
             R.drawable.face_simple,
             R.drawable.face_winter,
             R.drawable.face_card,
             R.drawable.face_city_peking,
             R.drawable.face_pointer,
-            R.drawable.face_number_2,
-            R.drawable.face_pointer_2,
+            R.drawable.face_number2,
+            R.drawable.face_pointer2,
             R.drawable.face_simple_12h,
             R.drawable.face_number_12h,
             R.drawable.face_city_sydney,
-            R.drawable.face_game
+            R.drawable.face_fame,
+            R.drawable.face_electron
     };
 
     private Uri faceFile = null;
