@@ -79,7 +79,7 @@ public class DownloadActivity extends Activity
                 return true;
             }
 
-            if ( url.endsWith( ".bin" ) )
+            if ( url.contains( "download?file=" ) )
             {
                 new DownloadTask( DownloadActivity.this ).execute( request, now );
                 return true;
