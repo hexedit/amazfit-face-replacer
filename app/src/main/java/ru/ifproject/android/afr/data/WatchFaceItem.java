@@ -18,20 +18,24 @@
 
 package ru.ifproject.android.afr.data;
 
+import android.graphics.Bitmap;
+
+import java.io.File;
+
 public class WatchFaceItem
 {
-    private String faceFile;
+    private File faceFile;
     private String faceName;
-    private int faceImage;
+    private Bitmap faceImage;
 
-    public WatchFaceItem( String faceFile, String faceName, int faceImage )
+    public WatchFaceItem( File faceFile, String faceName, Bitmap faceImage )
     {
         this.faceFile = faceFile;
         this.faceName = faceName;
         this.faceImage = faceImage;
     }
 
-    public String getFile()
+    public File getFile()
     {
         return faceFile;
     }
@@ -41,7 +45,7 @@ public class WatchFaceItem
         return faceName;
     }
 
-    public int getImage()
+    public Bitmap getImage()
     {
         return faceImage;
     }

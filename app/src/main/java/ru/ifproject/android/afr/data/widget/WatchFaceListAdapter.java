@@ -19,6 +19,7 @@
 package ru.ifproject.android.afr.data.widget;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ru.ifproject.android.afr.R;
@@ -34,22 +34,15 @@ import ru.ifproject.android.afr.data.WatchFaceItem;
 
 public class WatchFaceListAdapter extends BaseAdapter
 {
-    private List<WatchFaceItem> faceList = new ArrayList<>();
+    private List<WatchFaceItem> faceList;
     private LayoutInflater inflater;
 
     public WatchFaceListAdapter(
             Context context,
-            final String[] faceFiles,
-            final String[] faceNames,
-            final int[] faceImages )
+            List<WatchFaceItem> faceList )
     {
-        for ( int fx = 0; fx < faceFiles.length; fx++ )
-        {
-            faceList.add( new WatchFaceItem( faceFiles[ fx ],
-                                             faceNames[ fx ],
-                                             faceImages[ fx ] ) );
-            inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        }
+        this.faceList = faceList;
+        inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
     }
 
     @Override
@@ -80,7 +73,8 @@ public class WatchFaceListAdapter extends BaseAdapter
         ImageView faceImage = view.findViewById( R.id.face_image );
         TextView faceName = view.findViewById( R.id.face_name );
 
-        faceImage.setImageResource( face.getImage() );
+        Bitmap image = Bitmap.createScaledBitmap( face.getImage(), 176, 176, false );
+        faceImage.setImageBitmap( image );
         faceName.setText( face.getName() );
 
         return view;

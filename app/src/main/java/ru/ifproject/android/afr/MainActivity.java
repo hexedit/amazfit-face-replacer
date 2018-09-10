@@ -22,6 +22,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -34,6 +36,9 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -41,7 +46,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.List;
 
 import ru.ifproject.android.afr.data.WatchFaceItem;
 import ru.ifproject.android.afr.data.widget.WatchFaceListAdapter;
@@ -52,64 +60,7 @@ public class MainActivity extends Activity
     private static final int ABOUT_OPTIONS_ITEM = 1;
 
     private static final String mifitFacePath =
-            "/Android/data/com.xiaomi.hm.health/files/watch_skin/";
-    private static final String[] faceFiles = {
-            "39e3c0a9f99eecdf4872ac53f359093d.bin",
-            "05963d61d975f5776825fa0285a4bf48.bin",
-            "4742a3b64747a2f0b1f3f82adaa9a4a9.bin",
-            "6a7850c336ddd8104dd5373adcd9250a.bin",
-            "c9cf094ec3e689112495eb539723bd02.bin",
-            "346e945ff8ec88f73ac03877e34d50dd.bin",
-            "0a6226125223e580973ca446fbda4e8f.bin",
-            "ebdf8d01ae673814b4b929829da36962.bin",
-            "5edac8fd56205124d86f9e5c54857405.bin",
-            "831488f976d2cdd3f967fdd052de860d.bin",
-            "3a8cdd67067acdcf34fef1faa3563f2f.bin",
-            "4a5a805390abe287d644b59da1683802.bin",
-            "48c728bc39ffbe5ab304f57665289b28.bin",
-            "974658b4ad337a81a8c9843e1aee3a52.bin",
-            "f522ea87b0927f4468258d4cc326c0f9.bin",
-            "7bff10fc654d8d08873e59898fc15fb9.bin",
-            "78accc1807339121981e71e1ee3b3d26.bin"
-    };
-    private static final String[] faceNames = {
-            "Shade",
-            "Cube",
-            "Reverse",
-            "Number",
-            "Sport",
-            "Simple",
-            "Winter",
-            "Card",
-            "City_Peking",
-            "Pointer",
-            "Number",
-            "Pointer 2",
-            "Simple_12h",
-            "Number_12h",
-            "City_Sydney",
-            "Game",
-            "Electron"
-    };
-    private static final int[] faceImages = {
-            R.drawable.face_shade,
-            R.drawable.face_cube,
-            R.drawable.face_reverse,
-            R.drawable.face_number,
-            R.drawable.face_sport,
-            R.drawable.face_simple,
-            R.drawable.face_winter,
-            R.drawable.face_card,
-            R.drawable.face_city_peking,
-            R.drawable.face_pointer,
-            R.drawable.face_number2,
-            R.drawable.face_pointer2,
-            R.drawable.face_simple_12h,
-            R.drawable.face_number_12h,
-            R.drawable.face_city_sydney,
-            R.drawable.face_fame,
-            R.drawable.face_electron
-    };
+            "/Android/data/com.xiaomi.hm.health/files/watch_skin_local/";
 
     private Uri faceFile = null;
 
@@ -165,7 +116,7 @@ public class MainActivity extends Activity
             return;
         }
 
-        faceList.setAdapter( new WatchFaceListAdapter( this, faceFiles, faceNames, faceImages ) );
+        faceList.setAdapter( new WatchFaceListAdapter( this, readFaceList() ) );
         faceList.setOnItemClickListener( new FaceItemClickListener() );
 
         Toast.makeText( this, R.string.choose_replacing, Toast.LENGTH_LONG ).show();
@@ -249,6 +200,85 @@ public class MainActivity extends Activity
         }
     }
 
+    private List<WatchFaceItem> readFaceList()
+    {
+        List<WatchFaceItem> faceList = new ArrayList<>();
+
+        File dir = new File( Environment.getExternalStorageDirectory().toString(), mifitFacePath );
+        File[] sub = dir.listFiles();
+        if ( null != sub )
+        {
+            for ( File face : sub )
+            {
+                if ( !face.isDirectory() ) continue;
+
+                File bin = new File( face, face.getName() + ".bin" );
+                if ( !bin.exists() ) continue;
+
+                File xml = new File( face, "infos.xml" );
+                if ( !xml.exists() ) continue;
+
+                String name = readFaceName( xml );
+                Bitmap image = readFaceImage( face );
+
+                faceList.add( new WatchFaceItem( bin, name, image ) );
+            }
+        }
+
+        return faceList;
+    }
+
+    String readFaceName( File xml )
+    {
+        String name = "";
+        try
+        {
+            XmlPullParserFactory xppf = XmlPullParserFactory.newInstance();
+            XmlPullParser parser = xppf.newPullParser();
+            parser.setInput( new InputStreamReader( new FileInputStream( xml ) ) );
+            while ( parser.getEventType() != XmlPullParser.END_DOCUMENT )
+            {
+                if ( ( parser.getEventType() == XmlPullParser.START_TAG )
+                     && ( parser.getName().equalsIgnoreCase( "name" ) ) )
+                {
+                    name = parser.nextText();
+                }
+                parser.next();
+            }
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace();
+        }
+        return name;
+    }
+
+    Bitmap readFaceImage( File face )
+    {
+        //Drawable image = getDrawable( R.drawable.face_no_image );
+        Bitmap image = null;
+
+        File[] sub = face.listFiles();
+        if ( null != sub )
+        {
+            for ( File file : sub )
+            {
+                String name = file.getName();
+                if ( name.endsWith( ".png" ) || ( name.endsWith( ".jpg" ) ) ||
+                     ( name.endsWith( ".gif" ) ) )
+                {
+                    image = BitmapFactory.decodeFile( file.getPath() );
+                    break;
+                }
+            }
+        }
+
+        if ( null == image )
+            image = BitmapFactory.decodeResource( getResources(), R.drawable.face_no_image );
+
+        return image;
+    }
+
     private boolean checkFaceFile( Uri file )
     {
         boolean res = false;
@@ -273,29 +303,22 @@ public class MainActivity extends Activity
         return res;
     }
 
-    private void replaceFaceFile( Uri src, String dst ) throws IOException
+    private void replaceFaceFile( Uri src, File dst ) throws IOException
     {
         ParcelFileDescriptor pfd = getContentResolver().openFileDescriptor( src, "r" );
         if ( null == pfd )
             throw new FileNotFoundException();
         FileDescriptor srcFile = pfd.getFileDescriptor();
 
-        File path = new File( Environment.getExternalStorageDirectory().toString(), mifitFacePath );
-        if ( !path.exists() )
-            if ( !path.mkdirs() )
-                throw new FileNotFoundException();
-
-        File dstFile = new File( path, dst );
-        if ( !dstFile.exists() )
-            if ( !dstFile.createNewFile() )
-                throw new FileNotFoundException();
+        if ( !dst.exists() )
+            throw new FileNotFoundException();
 
         FileChannel source = null;
         FileChannel destination = null;
         try
         {
             source = new FileInputStream( srcFile ).getChannel();
-            destination = new FileOutputStream( dstFile ).getChannel();
+            destination = new FileOutputStream( dst ).getChannel();
             destination.transferFrom( source, 0, source.size() );
         }
         catch ( IOException e )
