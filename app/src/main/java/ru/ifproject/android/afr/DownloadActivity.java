@@ -20,6 +20,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class DownloadActivity extends Activity
 {
@@ -72,6 +75,7 @@ public class DownloadActivity extends Activity
         {
             final String url = request.toString();
 
+            assert null != now.getHost();
             if ( !now.getHost().equals( request.getHost() ) )
             {
                 Intent intent = new Intent( Intent.ACTION_VIEW, request );
@@ -81,7 +85,10 @@ public class DownloadActivity extends Activity
 
             if ( url.contains( "download?file=" ) )
             {
-                new DownloadTask( DownloadActivity.this ).execute( request, now );
+                SimpleDateFormat sdf = new SimpleDateFormat( "yyMMddhhmmssSSS",
+                                                             Locale.getDefault() );
+                Uri fileName = Uri.parse( sdf.format( new Date() ) + ".bin" );
+                new DownloadTask( DownloadActivity.this ).execute( fileName, request, now );
                 return true;
             }
 
@@ -116,9 +123,9 @@ public class DownloadActivity extends Activity
             {
                 try
                 {
-                    URL url = new URL( params[ 0 ].toString() );
+                    URL url = new URL( params[ 1 ].toString() );
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestProperty( "Referer", params[ 1 ].toString() );
+                    conn.setRequestProperty( "Referer", params[ 2 ].toString() );
                     conn.connect();
 
                     //int size = conn.getContentLength();
